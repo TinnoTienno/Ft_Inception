@@ -8,16 +8,16 @@ services:
     networks:
       - inception
 
-  mariadb:
-    build: ./requirements/mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
-    restart: always
-    networks:
-      - inception
+  # mariadb:
+  #   build: ./requirements/mariadb
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #     MYSQL_USER: ${MYSQL_USER}
+  #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  #     WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+  #   restart: always
+  #   networks:
+  #     - inception
 
   # wordpress:
   #   build: ./requirements/wordpress

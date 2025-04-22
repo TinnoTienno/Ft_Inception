@@ -1,8 +1,8 @@
-FROM debian:bullseye
+FROM alpine
 
-RUN apt-get update -y
+RUN apk update
 
-RUN apt-get install nginx openssl -y
+RUN apk add -i nginx openssl
 
 RUN openssl req -x509 -newkey rsa:4096 \
 	-keyout /etc/nginx/inception.key -out /etc/nginx/inception.crt -sha256 -days 3650 -nodes \
