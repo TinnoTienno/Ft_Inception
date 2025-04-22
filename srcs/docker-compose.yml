@@ -1,9 +1,37 @@
-version : '3'
+# version: '3'
 
 services:
-  wordpress:
   nginx:
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    networks:
+      - inception
 
-volumes:
+  mariadb:
+    build: ./requirements/mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+    restart: always
+    networks:
+      - inception
+
+  # wordpress:
+  #   build: ./requirements/wordpress
+  #   environment:
+  #     WORDPRESS_DB_HOST: mariadb
+  #     WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+  #     WORDPRESS_USER: ${MYSQL_USER}
+  #     WORDPRESS_PASSWORD: ${MYSQL_PASSWORD}
+  #   networks:
+  #     - inception
 
 networks:
+  inception:
+
+volumes:
+  mariadb_data:
+  wordpress_data:
