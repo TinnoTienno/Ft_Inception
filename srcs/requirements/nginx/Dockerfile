@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.20
 
 RUN apk update
 
@@ -6,11 +6,11 @@ RUN apk add -i nginx openssl
 
 RUN openssl req -x509 -newkey rsa:4096 \
 	-keyout /etc/nginx/inception.key -out /etc/nginx/inception.crt -sha256 -days 3650 -nodes \
-	-subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"
+	-subj "/C=XX/ST=France/L=Paris/O=42/OU=Stud/CN=eschussl"
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-COPY index.html /usr/share/nginx/html
+COPY conf/index.html /usr/share/nginx/index.html
 
 EXPOSE 443
 

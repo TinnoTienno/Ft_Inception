@@ -1,5 +1,5 @@
 # Variables
-COMPOSE=sudo docker compose --env-file srcs/.env -f srcs/docker-compose.yml
+COMPOSE=sudo docker compose -f srcs/docker-compose.yml
 
 # Cibles
 .PHONY: all up down clean fclean re
@@ -21,5 +21,8 @@ clean:
 fclean: clean
 	@echo "🔥 Suppression des images Docker..."
 	sudo docker rmi $$(sudo docker images -q) || true
+
+logs :
+	
 
 re: fclean all
