@@ -1,11 +1,8 @@
-# version: '3'
-
 services:
   nginx:
     build: ./requirements/nginx
     container_name: nginx
-    # depends_on:
-      # - wordpress
+    volumes: ['wpVol:/var/www/html']
     ports:
       - "443:443"
     networks:
@@ -20,44 +17,39 @@ services:
     restart: always
     networks:
       - inception
+    volumes: ['dbVol:/var/lib/mysql']
     depends_on:
-      # - wordpress
       - nginx
 
-  # wordpress:
-  #   build: ./requirements/wordpress
-  #   container_name: wordpress
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - inception
-  #   restart: always
-      # secrets:
-      #  - db_password
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    volumes: ['wpVol:/var/www/html']
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: always
+    depends_on:
+      - nginx
+      - mariadb
+    expose:
+      - "9000"
 
 networks:
   inception:
-    name: inception
     driver: bridge
 
 volumes:
-  mariadb_data:
-    name: mariadb
+  dbVol:
     driver: local
     driver_opts:
-      device: home/eschussl/data/mariadb
+      device: /home/eschussl/data/dbVol
       o: bind
       type: none
-  wordpress_data:
-    name: wordpress
+  wpVol:
     driver: local
     driver_opts:
-      device: home/eschussl/data/wordpress
+      device: /home/eschussl/data/wpVol
       o: bind
       type: none
-
-secrets:
-   db_password:
-     file: db_password.txt
-   db_root_password:
-     file: db_root_password.txt

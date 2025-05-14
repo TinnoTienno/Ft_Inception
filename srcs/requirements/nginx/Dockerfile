@@ -10,8 +10,6 @@ RUN openssl req -x509 -newkey rsa:4096 \
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-COPY conf/index.html /usr/share/nginx/index.html
-
 EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

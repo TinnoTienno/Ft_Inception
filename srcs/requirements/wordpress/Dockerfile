@@ -1,13 +1,19 @@
 FROM debian:bullseye
 
-RUN apt update && apt install -y php php-fpm php-mysql wget
+RUN apt update
+RUN apt install -y php7.4 php7.4-fpm php-mysqli curl
 
-# COPY ./conf/wp-config.php /var/www/html/wp-config.php
+RUN PHP_FPM_PATH=$(command -v /usr/sbin/php-fpm*) && \
+	ln -s $PHP_FPM_PATH /usr/bin/php-fpm
 
-RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
+RUN mkdir -p /run/php
 
-RUN cd /var/www && tar -xzf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
-RUN		chown -R root:root /var/www/wordpress
+COPY ./tools/wordpress.sh . 
 
-CMD ["php-fpm", "-F"]
+RUN chmod 777 ./wordpress.sh
+
+EXPOSE 9000
+
+CMD [ "sh", "./wordpress.sh" ]
