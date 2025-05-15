@@ -1,28 +1,32 @@
 # Variables
-COMPOSE=sudo docker compose -f srcs/docker-compose.yml
+COMPOSE=docker compose -f srcs/docker-compose.yml
 
 # Cibles
-.PHONY: all up down clean fclean re
+.PHONY: all up down clean fclean re data
 
 all: up
 
-up:
-	@echo "🔧 Lancement des services..."
+up: data
 	@$(COMPOSE) up -d --build
 
 down:
-	@echo "🛑 Arrêt des services..."
 	@$(COMPOSE) down
 
 clean:
-	@echo "🧹 Suppression des conteneurs, volumes, réseaux..."
 	@$(COMPOSE) down -v
+	@sudo rm -rf /home/eschussl/data/wpVol
+	@sudo rm -rf /home/eschussl/data/dbVol
 
 fclean: clean
-	@echo "🔥 Suppression des images Docker..."
-	sudo docker rmi $$(sudo docker images -q) || true
+	docker rmi $$(sudo docker images -q) || true
 
 logs :
 	
+db:
+	docker exec -it mariadb bash
+	
+data:
+	@mkdir -p /home/$(USER)/data/wpVol
+	@mkdir -p /home/$(USER)/data/dbVol
 
 re: fclean all

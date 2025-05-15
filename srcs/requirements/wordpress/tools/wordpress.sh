@@ -41,7 +41,7 @@ wp core install \
 # create a 2nd user
 wp user create $WORDPRESS_DB_USER $WORDPRESS_DB_EMAIL --role=subscriber --user_pass=$WORDPRESS_DB_PASSWORD --allow-root
 
-wp theme install leancv --allow-root
+wp theme install leanCV --allow-root
 
 # start in the foreground mode
-php-fpm -F
+exec php-fpm -F
