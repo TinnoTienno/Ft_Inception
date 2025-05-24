@@ -11,5 +11,6 @@ RUN openssl req -x509 -newkey rsa:4096 \
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
