@@ -37,6 +37,8 @@ wp core install \
 	--admin_password=$MYSQL_ROOT_PASSWORD \
 	--admin_email=$MYSQL_ROOT_EMAIL \
 
+wp option update siteurl https://eschussl.42.fr --allow-root
+wp option update home https://eschussl.42.fr --allow-root
 
 # create a 2nd user
 wp user create $WORDPRESS_DB_USER $WORDPRESS_DB_EMAIL --role=subscriber --user_pass=$WORDPRESS_DB_PASSWORD --allow-root
