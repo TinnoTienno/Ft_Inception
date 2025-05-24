@@ -32,7 +32,7 @@ wp core install \
 	--allow-root \
 	--skip-email \
 	--title=wordpress \
-	--url=localhost \
+	--url=$DOMAIN_NAME \
 	--admin_user=$MYSQL_ROOT_USER \
 	--admin_password=$MYSQL_ROOT_PASSWORD \
 	--admin_email=$MYSQL_ROOT_EMAIL \
@@ -41,7 +41,7 @@ wp core install \
 # create a 2nd user
 wp user create $WORDPRESS_DB_USER $WORDPRESS_DB_EMAIL --role=subscriber --user_pass=$WORDPRESS_DB_PASSWORD --allow-root
 
-wp theme install leanCV --allow-root
+wp theme install twentytwentytwo --allow-root
 
 # start in the foreground mode
 exec php-fpm -F

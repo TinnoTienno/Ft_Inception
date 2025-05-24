@@ -14,8 +14,8 @@ down:
 
 clean:
 	@$(COMPOSE) down -v
-	@sudo rm -rf /home/eschussl/data/wpVol
-	@sudo rm -rf /home/eschussl/data/dbVol
+	@sudo rm -rf /home/$(USER)/data/wpVol
+	@sudo rm -rf /home/$(USER)/data/dbVol
 
 fclean: clean
 	docker rmi $$(sudo docker images -q) || true

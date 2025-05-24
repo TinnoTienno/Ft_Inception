@@ -43,12 +43,12 @@ volumes:
   dbVol:
     driver: local
     driver_opts:
-      device: /home/eschussl/data/dbVol
+      device: "/home/${USER}/data/dbVol"
       o: bind
       type: none
   wpVol:
     driver: local
     driver_opts:
-      device: /home/eschussl/data/wpVol
+      device: "/home/${USER}/data/wpVol"
       o: bind
       type: none

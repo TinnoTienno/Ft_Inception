@@ -14,4 +14,6 @@ COPY conf/script.sh /script.sh
 
 RUN  chmod 750 /script.sh
 
+EXPOSE 3306
+
 ENTRYPOINT ["/script.sh"]
